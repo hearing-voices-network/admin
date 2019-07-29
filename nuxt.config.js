@@ -44,9 +44,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://auth.nuxtjs.org
-    '@nuxtjs/auth',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/auth'
   ],
   /*
    ** Axios module configuration
