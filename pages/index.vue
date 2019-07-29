@@ -9,7 +9,7 @@
         The admin web app for the Connecting Voices platform.
       </h2>
       <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
+        <a href="https://nuxtjs.org/" target="_blank" class="button--grey">
           Documentation
         </a>
         <a
@@ -19,6 +19,9 @@
         >
           GitHub
         </a>
+        <button type="button" class="button--green" @click="onLogin">
+          Login
+        </button>
       </div>
     </div>
   </div>
@@ -30,6 +33,12 @@ import Logo from '~/components/Logo.vue'
 export default {
   components: {
     Logo
+  },
+
+  methods: {
+    onLogin() {
+      this.$auth.loginWith('laravel.passport')
+    }
   }
 }
 </script>
