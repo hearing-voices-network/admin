@@ -7,7 +7,6 @@ export default {
    */
   env: {
     appName: 'Connecting Voices',
-    defaultPerPage: process.env.DEFAULT_PER_PAGE || 15,
     contactEmail: process.env.CONTACT_EMAIL || 'mailto:hello@example.com',
     apiBaseUrl: process.env.API_BASE_URL
   },
@@ -44,7 +43,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~plugins/vue-api-query'],
   /*
    ** Nuxt.js dev-modules
    */

@@ -19,7 +19,8 @@
     "govuk-frontend": "^3.0.0",
     "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "vue-api-query": "^1.5.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

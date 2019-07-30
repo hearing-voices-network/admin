@@ -61,6 +61,8 @@ import GovTableHead from '~/components/gov/table/Head.vue'
 import GovTableHeader from '~/components/gov/table/Header.vue'
 import GovTableCell from '~/components/gov/table/Cell.vue'
 
+import Contribution from '~/models/Contribution'
+
 export default {
   components: {
     GovBody,
@@ -92,6 +94,11 @@ export default {
         }
       ]
     }
+  },
+
+  async mounted() {
+    const contribution = await Contribution.page(1).get()
+    console.log(contribution)
   }
 }
 </script>

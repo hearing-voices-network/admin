@@ -1,10 +1,7 @@
-import Model from '~/models/ModelsWithSoftDeletes'
+import Model from './Model'
 
 export default class Contribution extends Model {
-  /**
-   * @returns {string}
-   */
-  static get $resourceUrl() {
-    return `${process.env.apiBaseUrl}/contributions`
+  resource() {
+    return 'contributions'
   }
 }
