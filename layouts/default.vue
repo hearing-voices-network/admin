@@ -2,8 +2,8 @@
   <div>
     <gov-skip-link />
     <gov-header
-      service-name="Connecting Voices"
-      :navigation="header.navigation"
+      :service-name="appName"
+      :navigation="$auth.loggedIn ? header.navigation : []"
     />
 
     <nuxt />
@@ -26,6 +26,7 @@ export default {
 
   data() {
     return {
+      appName: process.env.appName,
       header: {
         navigation: [
           {
@@ -34,8 +35,8 @@ export default {
             exact: true
           },
           {
-            text: 'Submissions',
-            url: { name: 'submissions' }
+            text: 'Contributions',
+            url: { name: 'contributions' }
           },
           {
             text: 'End Users',

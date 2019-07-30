@@ -6,6 +6,7 @@ export default {
    ** Environment variables
    */
   env: {
+    appName: 'Connecting Voices',
     contactEmail: process.env.CONTACT_EMAIL || 'mailto:hello@example.com'
   },
   /*
@@ -76,6 +77,12 @@ export default {
         userinfo_endpoint: `${process.env.API_BASE_URL}/admins/me`
       }
     }
+  },
+  /*
+   ** Router configuration
+   */
+  router: {
+    middleware: ['auth']
   },
   /*
    ** Build configuration
