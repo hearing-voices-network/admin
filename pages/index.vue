@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <gov-main-wrapper>
+    <gov-main-wrapper auto-spacing>
       <gov-heading-l>Dashboard</gov-heading-l>
 
       <template v-if="$auth.loggedIn">
