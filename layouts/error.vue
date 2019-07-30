@@ -20,9 +20,14 @@
 
       <!-- Default for any other errors -->
       <template v-else>
-        <gov-heading-l>Error {{ error.statusCode }}</gov-heading-l>
+        <gov-heading-l>Error - {{ error.statusCode }}</gov-heading-l>
 
         <gov-body>{{ error.message }}</gov-body>
+
+        <gov-body>
+          Please <gov-link :url="mailto">contact us</gov-link> to report the
+          error.
+        </gov-body>
       </template>
     </gov-main-wrapper>
   </gov-width-container>
