@@ -1,3 +1,5 @@
 <template>
-  <p class="govuk-body-l"><slot /></p>
+  <p class="govuk-body-l">
+    <slot />
+  </p>
 </template>

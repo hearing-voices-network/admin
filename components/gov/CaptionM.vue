@@ -1,3 +1,5 @@
 <template>
-  <span class="govuk-caption-m"><slot /></span>
+  <span class="govuk-caption-m">
+    <slot />
+  </span>
 </template>
