@@ -5,7 +5,9 @@
       service-name="Connecting Voices"
       :navigation="header.navigation"
     />
+
     <nuxt />
+
     <gov-footer :navigation="footer.navigation" :meta="footer.meta" />
   </div>
 </template>

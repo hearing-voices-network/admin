@@ -1,38 +1,22 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        admin
-      </h1>
-      <h2 class="subtitle">
-        The admin web app for the Connecting Voices platform.
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--grey">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-        <button type="button" class="button--green" @click="onLogin">
-          Login
-        </button>
-      </div>
-    </div>
-  </div>
+  <gov-width-container>
+    <gov-main-wrapper>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi,
+      voluptate. Quae eius, fuga excepturi enim quam veritatis quidem nesciunt
+      omnis aliquam dicta provident laboriosam alias suscipit? Soluta ducimus
+      incidunt delectus?
+    </gov-main-wrapper>
+  </gov-width-container>
 </template>
 
 <script>
-import Logo from '~/components/custom/Logo.vue'
+import GovMainWrapper from '~/components/gov/MainWrapper.vue'
+import GovWidthContainer from '~/components/gov/WidthContainer.vue'
 
 export default {
   components: {
-    Logo
+    GovMainWrapper,
+    GovWidthContainer
   },
 
   methods: {
