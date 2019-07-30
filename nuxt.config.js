@@ -72,7 +72,8 @@ export default {
       'laravel.passport': {
         url: process.env.API_OAUTH_URL,
         client_id: process.env.API_OAUTH_CLIENT_ID,
-        client_secret: process.env.API_OAUTH_CLIENT_SECRET
+        client_secret: process.env.API_OAUTH_CLIENT_SECRET,
+        userinfo_endpoint: `${process.env.API_BASE_URL}/admins/me`
       }
     }
   },
