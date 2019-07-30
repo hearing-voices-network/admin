@@ -1,7 +1,7 @@
 <template>
   <div>
-    <gov-header service-name="Connecting Voices" :navigation="navigation" />
     <gov-skip-link />
+    <gov-header service-name="Connecting Voices" :navigation="navigation" />
     <nuxt />
   </div>
 </template>
@@ -21,6 +21,18 @@ export default {
       navigation: [
         {
           text: 'Navigation item 1',
+          url: { name: 'index' }
+        },
+        {
+          text: 'Navigation item 2',
+          url: { name: 'index' }
+        },
+        {
+          text: 'Navigation item 3',
+          url: { name: 'index' }
+        },
+        {
+          text: 'Navigation item 4',
           url: { name: 'index' }
         }
       ]
