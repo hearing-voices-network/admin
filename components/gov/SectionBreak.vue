@@ -5,7 +5,7 @@
       'govuk-section-break--visible': visible,
       'govuk-section-break--xl': visible,
       'govuk-section-break--l': visible,
-      'govuk-section-break--m': visible,
+      'govuk-section-break--m': visible
     }"
   />
 </template>

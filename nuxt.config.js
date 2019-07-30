@@ -3,6 +3,12 @@ require('dotenv').config()
 export default {
   mode: 'universal',
   /*
+   ** Environment variables
+   */
+  env: {
+    contactEmail: process.env.CONTACT_EMAIL || 'mailto:hello@example.com'
+  },
+  /*
    ** Headers of the page
    */
   head: {

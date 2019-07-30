@@ -1,5 +1,15 @@
 <template>
+  <a
+    v-if="isHref"
+    class="govuk-link"
+    :class="{ 'govuk-link--no-visited-state': noVisitedState }"
+    :href="url"
+  >
+    <slot />
+  </a>
+
   <nuxt-link
+    v-else
     class="govuk-link"
     :class="{ 'govuk-link--no-visited-state': noVisitedState }"
     :to="url"
@@ -20,6 +30,12 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    }
+  },
+
+  computed: {
+    isHref() {
+      return typeof this.url === 'string'
     }
   }
 }
