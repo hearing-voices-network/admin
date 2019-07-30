@@ -7,7 +7,9 @@ export default {
    */
   env: {
     appName: 'Connecting Voices',
-    contactEmail: process.env.CONTACT_EMAIL || 'mailto:hello@example.com'
+    defaultPerPage: process.env.DEFAULT_PER_PAGE || 15,
+    contactEmail: process.env.CONTACT_EMAIL || 'mailto:hello@example.com',
+    apiBaseUrl: process.env.API_BASE_URL
   },
   /*
    ** Headers of the page

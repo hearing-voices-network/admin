@@ -21,13 +21,19 @@
           <gov-table>
             <gov-table-head>
               <gov-table-row>
+                <gov-table-header>Email</gov-table-header>
+                <gov-table-header>Excerpt</gov-table-header>
                 <gov-table-header>Status</gov-table-header>
-                <gov-table-header>Last Updated</gov-table-header>
+                <gov-table-header>Created</gov-table-header>
               </gov-table-row>
             </gov-table-head>
             <gov-table-body>
               <gov-table-row>
-                <gov-table-cell>Public</gov-table-cell>
+                <gov-table-cell>john.doe@example.com</gov-table-cell>
+                <gov-table-cell>Lorem ipsum dolar...</gov-table-cell>
+                <gov-table-cell>
+                  <gov-tag>public</gov-tag>
+                </gov-table-cell>
                 <gov-table-cell>30/7/2019 13:04</gov-table-cell>
               </gov-table-row>
             </gov-table-body>
@@ -46,6 +52,7 @@ import GovGridColumnTwoThirds from '~/components/gov/GridColumnTwoThirds.vue'
 import GovGridRow from '~/components/gov/GridRow.vue'
 import GovHeadingL from '~/components/gov/HeadingL.vue'
 import GovMainWrapper from '~/components/gov/MainWrapper.vue'
+import GovTag from '~/components/gov/Tag.vue'
 import GovWidthContainer from '~/components/gov/WidthContainer.vue'
 import GovTable from '~/components/gov/Table.vue'
 import GovTableBody from '~/components/gov/table/Body.vue'
@@ -63,6 +70,7 @@ export default {
     GovGridRow,
     GovHeadingL,
     GovMainWrapper,
+    GovTag,
     GovWidthContainer,
     GovTable,
     GovTableBody,
