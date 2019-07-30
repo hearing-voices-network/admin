@@ -61,7 +61,7 @@
           >
             <nuxt-link
               v-for="(item, index) in navigation"
-              :key="`gov::Header::item::${index}`"
+              :key="`gov::Header::navigation::item::${index}`"
               tag="li"
               class="govuk-header__navigation-item"
               active-class="govuk-header__navigation-item--active"
