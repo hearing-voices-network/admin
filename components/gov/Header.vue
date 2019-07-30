@@ -64,6 +64,7 @@
               :key="`gov::Header::navigation::item::${index}`"
               tag="li"
               class="govuk-header__navigation-item"
+              :exact="item.exact || false"
               active-class="govuk-header__navigation-item--active"
               :to="item.url"
             >

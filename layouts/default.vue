@@ -29,20 +29,25 @@ export default {
       header: {
         navigation: [
           {
-            text: 'Navigation item 1',
-            url: { name: 'index' }
+            text: 'Dashboard',
+            url: { name: 'index' },
+            exact: true
           },
           {
-            text: 'Navigation item 2',
-            url: { name: 'index' }
+            text: 'Submissions',
+            url: { name: 'submissions' }
           },
           {
-            text: 'Navigation item 3',
-            url: { name: 'index' }
+            text: 'End Users',
+            url: { name: 'end-users' }
           },
           {
-            text: 'Navigation item 4',
-            url: { name: 'index' }
+            text: 'Admin Users',
+            url: { name: 'admin-users' }
+          },
+          {
+            text: 'Settings',
+            url: { name: 'settings' }
           }
         ]
       },
