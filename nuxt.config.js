@@ -58,7 +58,9 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://auth.nuxtjs.org
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    // Doc: https://github.com/nuxt-community/moment-module
+    '@nuxtjs/moment'
   ],
   /*
    ** Axios module configuration
@@ -78,6 +80,14 @@ export default {
         userinfo_endpoint: `${process.env.API_BASE_URL}/admins/me`
       }
     }
+  },
+  /*
+   ** Moment module configuration
+   ** See https://github.com/nuxt-community/moment-module
+   */
+  moment: {
+    locales: ['en-gb'],
+    defaultLocale: 'en-gb'
   },
   /*
    ** Router configuration

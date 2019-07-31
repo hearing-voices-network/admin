@@ -32,7 +32,15 @@
             </template>
 
             <template v-slot:1="{ resource: contribution }">
+              {{ contribution.excerpt }}
+            </template>
+
+            <template v-slot:2="{ resource: contribution }">
               <gov-tag>{{ contribution.status }}</gov-tag>
+            </template>
+
+            <template v-slot:3="{ resource: contribution }">
+              {{ $moment(contribution.created_at).format('D/M/YYYY HH:mm') }}
             </template>
 
             <template v-slot:actions="{ resource: contribution }">
@@ -101,7 +109,13 @@ export default {
           heading: 'End User Email'
         },
         {
+          heading: 'Excerpt'
+        },
+        {
           heading: 'Status'
+        },
+        {
+          heading: 'Date Created'
         }
       ],
       model: Contribution
