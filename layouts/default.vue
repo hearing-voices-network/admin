@@ -106,4 +106,16 @@ $govuk-fonts-path: '../node_modules/govuk-frontend/govuk/assets/fonts/';
     cursor: pointer;
   }
 }
+
+.custom-icon {
+  @extend .govuk-\!-margin-left-1;
+
+  &.custom-icon--inactive {
+    color: govuk-colour('mid-grey');
+  }
+
+  &.custom-icon--active {
+    color: $govuk-brand-colour;
+  }
+}
 </style>

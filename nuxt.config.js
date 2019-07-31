@@ -43,7 +43,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~plugins/vue-api-query'],
+  plugins: ['~plugins/vue-api-query', '~plugins/font-awesome'],
   /*
    ** Nuxt.js dev-modules
    */

@@ -12,8 +12,27 @@
             @click.native="onSort(column)"
           >
             {{ column.heading }}
-            <template v-if="isSortable(column) && isCurrentSort(column)">
-              {{ sortDirection }}
+            <template v-if="isSortable(column)">
+              <font-awesome-icon
+                v-if="isCurrentSort(column) && isAsc"
+                icon="sort-up"
+                class="custom-icon custom-icon--active"
+                title="Ascending"
+              />
+
+              <font-awesome-icon
+                v-else-if="isCurrentSort(column) && isDesc"
+                icon="sort-down"
+                class="custom-icon custom-icon--active"
+                title="Descending"
+              />
+
+              <font-awesome-icon
+                v-else
+                icon="sort"
+                class="custom-icon custom-icon--inactive"
+                title="Unsorted"
+              />
             </template>
           </gov-table-header>
 
@@ -114,6 +133,14 @@ export default {
 
     sortDirection() {
       return this.sort.charAt(0) === '-' ? 'desc' : 'asc'
+    },
+
+    isAsc() {
+      return this.sortDirection === 'asc'
+    },
+
+    isDesc() {
+      return this.sortDirection === 'desc'
     }
   },
 
@@ -149,8 +176,7 @@ export default {
     },
 
     onSort(column) {
-      const currentSortField =
-        this.sortDirection === 'desc' ? this.sort.substr(1) : this.sort
+      const currentSortField = this.isDesc ? this.sort.substr(1) : this.sort
 
       const columnSortField = column.sort
 
@@ -162,7 +188,7 @@ export default {
       if (currentSortField !== columnSortField) {
         // If not the current sort.
         this.sort = columnSortField
-      } else if (this.sortDirection === 'asc') {
+      } else if (this.isAsc) {
         // If it is the current sort (toggle asc/desc).
         this.sort = `-${columnSortField}`
       } else {
@@ -178,8 +204,7 @@ export default {
     },
 
     isCurrentSort(column) {
-      const currentSortField =
-        this.sortDirection === 'desc' ? this.sort.substr(1) : this.sort
+      const currentSortField = this.isDesc ? this.sort.substr(1) : this.sort
 
       return column.sort === currentSortField
     }
