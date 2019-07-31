@@ -2,7 +2,8 @@
   <th
     class="govuk-table__header"
     :class="{
-      'govuk-table__header--numeric': numeric
+      'govuk-table__header--numeric': numeric,
+      'custom-table__header--clickable': clickable
     }"
   >
     <slot />
@@ -13,6 +14,12 @@
 export default {
   props: {
     numeric: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+
+    clickable: {
       type: Boolean,
       required: false,
       default: false

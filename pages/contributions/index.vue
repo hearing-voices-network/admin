@@ -21,6 +21,7 @@
           <custom-resource-table
             :columns="columns"
             :model="model"
+            default-sort="-created_at"
             @fetched="onFetched"
           >
             <template v-slot:0="{ resource: contribution }">
@@ -115,7 +116,8 @@ export default {
           heading: 'Status'
         },
         {
-          heading: 'Date Created'
+          heading: 'Date Created',
+          sort: 'created_at'
         }
       ],
       model: Contribution

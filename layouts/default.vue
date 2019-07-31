@@ -99,4 +99,11 @@ export default {
 <style lang="scss">
 $govuk-fonts-path: '../node_modules/govuk-frontend/govuk/assets/fonts/';
 @import 'govuk-frontend/govuk/all.scss';
+
+.custom-table__header--clickable {
+  &:hover {
+    background-color: govuk-colour('light-grey');
+    cursor: pointer;
+  }
+}
 </style>

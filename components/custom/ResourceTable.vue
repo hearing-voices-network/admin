@@ -8,8 +8,13 @@
           <gov-table-header
             v-for="(column, headerIndex) in columns"
             :key="`custom::ResourceTable::header::${headerIndex}`"
+            :clickable="isSortable(column)"
+            @click.native="onSort(column)"
           >
             {{ column.heading }}
+            <template v-if="isSortable(column) && isCurrentSort(column)">
+              {{ sortDirection }}
+            </template>
           </gov-table-header>
 
           <gov-table-header numeric />
@@ -83,6 +88,12 @@ export default {
     model: {
       type: Function,
       required: true
+    },
+
+    defaultSort: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
 
@@ -91,13 +102,18 @@ export default {
       resources: [],
       loading: false,
       currentPage: 1,
-      totalPages: 1
+      totalPages: 1,
+      sort: this.defaultSort
     }
   },
 
   computed: {
     noResources() {
       return this.resources.length === 0
+    },
+
+    sortDirection() {
+      return this.sort.charAt(0) === '-' ? 'desc' : 'asc'
     }
   },
 
@@ -109,7 +125,10 @@ export default {
     async fetchResources() {
       this.loading = true
 
-      const { data, meta } = await this.model.page(this.currentPage).get()
+      const { data, meta } = await this.model
+        .orderBy(this.sort)
+        .page(this.currentPage)
+        .get()
       this.resources = data
       this.currentPage = meta.current_page
       this.totalPages = meta.last_page
@@ -127,6 +146,42 @@ export default {
     onNext() {
       this.currentPage = this.currentPage + 1
       this.fetchResources()
+    },
+
+    onSort(column) {
+      const currentSortField =
+        this.sortDirection === 'desc' ? this.sort.substr(1) : this.sort
+
+      const columnSortField = column.sort
+
+      // Do nothing if the field is not sortable.
+      if (typeof columnSortField === 'undefined') {
+        return
+      }
+
+      if (currentSortField !== columnSortField) {
+        // If not the current sort.
+        this.sort = columnSortField
+      } else if (this.sortDirection === 'asc') {
+        // If it is the current sort (toggle asc/desc).
+        this.sort = `-${columnSortField}`
+      } else {
+        this.sort = columnSortField
+      }
+
+      // Refetch the resources.
+      this.fetchResources()
+    },
+
+    isSortable(column) {
+      return typeof column.sort !== 'undefined'
+    },
+
+    isCurrentSort(column) {
+      const currentSortField =
+        this.sortDirection === 'desc' ? this.sort.substr(1) : this.sort
+
+      return column.sort === currentSortField
     }
   }
 }
