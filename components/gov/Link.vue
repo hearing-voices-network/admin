@@ -4,6 +4,7 @@
     class="govuk-link"
     :class="{ 'govuk-link--no-visited-state': noVisitedState }"
     :href="url"
+    @click="onClick"
   >
     <slot />
   </a>
@@ -23,7 +24,8 @@ export default {
   props: {
     url: {
       type: [String, Object],
-      required: true
+      required: false,
+      default: 'javascript:;'
     },
 
     noVisitedState: {
@@ -36,6 +38,12 @@ export default {
   computed: {
     isHref() {
       return typeof this.url === 'string'
+    }
+  },
+
+  methods: {
+    onClick() {
+      this.$emit('click')
     }
   }
 }
