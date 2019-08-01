@@ -11,7 +11,6 @@
         tag="li"
         class="govuk-tabs__list-item"
         active-class="govuk-tabs__list-item--selected"
-        exact
         :to="tab.url"
       >
         <a class="govuk-tabs__tab" href="#">

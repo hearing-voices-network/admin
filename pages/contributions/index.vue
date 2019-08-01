@@ -128,19 +128,21 @@ export default {
     /**
      * Once the contributions have been fetched, also fetch the end users.
      */
-    async onFetched(resources) {
+    async onFetched(contributions) {
       // Get the end user IDs.
-      const endUserIds = resources.map((resource) => resource.end_user_id)
+      const endUserIds = contributions.map(
+        (contribution) => contribution.end_user_id
+      )
 
       // Fetch the end users for the contributions.
       const endUsers = await EndUser.whereIn('id', endUserIds).$get()
 
       // Set the end_user property for each contribution.
-      resources.forEach((resource) => {
+      contributions.forEach((contribution) => {
         this.$set(
-          resource,
+          contribution,
           'end_user',
-          endUsers.find((endUser) => endUser.id === resource.end_user_id)
+          endUsers.find((endUser) => endUser.id === contribution.end_user_id)
         )
       })
     }
