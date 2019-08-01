@@ -19,8 +19,12 @@
       </template>
 
       <template v-slot:2="{ resource: audit }">
+        <template v-if="audit.admin_id === null && audit.end_user_id === null">
+          Guest
+        </template>
+
         <gov-link
-          v-if="audit.admin"
+          v-else-if="audit.admin"
           :url="{
             name: 'admin-users-id',
             params: { admin_user: audit.admin.id }

@@ -25,9 +25,17 @@
             @fetched="onFetched"
           >
             <template v-slot:0="{ resource: contribution }">
-              <template v-if="contribution.end_user">
+              <gov-link
+                v-if="contribution.end_user"
+                :url="{
+                  name: 'end-users-id',
+                  params: { end_user: contribution.end_user.id }
+                }"
+                no-visited-state
+                title="End user"
+              >
                 {{ contribution.end_user.email }}
-              </template>
+              </gov-link>
 
               <custom-loader v-else class="govuk-!-margin-bottom-0" />
             </template>
@@ -107,7 +115,7 @@ export default {
       ],
       columns: [
         {
-          heading: 'End User Email'
+          heading: 'End User'
         },
         {
           heading: 'Excerpt'
