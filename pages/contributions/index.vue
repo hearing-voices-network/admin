@@ -29,7 +29,7 @@
                 v-if="contribution.end_user"
                 :url="{
                   name: 'end-users-id',
-                  params: { end_user: contribution.end_user.id }
+                  params: { id: contribution.end_user.id }
                 }"
                 no-visited-state
                 title="End user"
@@ -55,8 +55,8 @@
             <template v-slot:actions="{ resource: contribution }">
               <gov-link
                 :url="{
-                  name: 'contributions-show',
-                  params: { contribution: contribution.id }
+                  name: 'contributions-id',
+                  params: { id: contribution.id }
                 }"
                 no-visited-state
               >

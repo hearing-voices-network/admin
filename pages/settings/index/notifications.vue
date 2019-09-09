@@ -22,7 +22,7 @@
           v-if="notification.admin_id !== null"
           :url="{
             name: 'admin-users-id',
-            params: { admin_user: notification.admin_id }
+            params: { id: notification.admin_id }
           }"
           title="Admin user"
           no-visited-state
@@ -34,7 +34,7 @@
           v-else-if="notification.end_user_id !== null"
           :url="{
             name: 'end-users-id',
-            params: { end_user: notification.end_user_id }
+            params: { id: notification.end_user_id }
           }"
           title="End user"
           no-visited-state
@@ -55,7 +55,7 @@
         <gov-link
           :url="{
             name: 'setting-index-notifications-id',
-            params: { notification: notification.id }
+            params: { id: notification.id }
           }"
           no-visited-state
         >

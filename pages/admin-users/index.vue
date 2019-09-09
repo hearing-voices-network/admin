@@ -38,8 +38,8 @@
             <template v-slot:actions="{ resource: admin }">
               <gov-link
                 :url="{
-                  name: 'admin-users-show',
-                  params: { admin_user: admin.id }
+                  name: 'admin-users-id',
+                  params: { id: admin.id }
                 }"
                 no-visited-state
               >

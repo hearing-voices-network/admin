@@ -27,7 +27,7 @@
           v-else-if="audit.admin"
           :url="{
             name: 'admin-users-id',
-            params: { admin_user: audit.admin.id }
+            params: { id: audit.admin.id }
           }"
           no-visited-state
           title="Admin user"
@@ -39,7 +39,7 @@
           v-else-if="audit.end_user"
           :url="{
             name: 'end-users-id',
-            params: { end_user: audit.end_user.id }
+            params: { id: audit.end_user.id }
           }"
           no-visited-state
           title="End user"
@@ -58,7 +58,7 @@
         <gov-link
           :url="{
             name: 'setting-index-audit-logs-id',
-            params: { audit_log: audit.id }
+            params: { id: audit.id }
           }"
           no-visited-state
         >

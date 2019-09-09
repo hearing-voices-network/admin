@@ -44,8 +44,8 @@
             <template v-slot:actions="{ resource: endUser }">
               <gov-link
                 :url="{
-                  name: 'end-users-show',
-                  params: { end_user: endUser.id }
+                  name: 'end-users-id',
+                  params: { id: endUser.id }
                 }"
                 no-visited-state
               >
