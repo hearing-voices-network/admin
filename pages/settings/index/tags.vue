@@ -9,17 +9,32 @@
       incidunt delectus?
     </gov-body>
 
+    <!-- Parent tags -->
     <gov-list bullet>
-      <li>Item 1</li>
-      <li>Item 2</li>
-      <li>
-        Item 3
-        <gov-list bullet>
-          <li>Item 1</li>
-          <li>Item 2</li>
+      <li
+        v-for="(parentTag, parentIndex) in tags"
+        :key="`page::settings::tags::parentTag::${parentIndex}`"
+      >
+        {{ parentTag.name }}
+        <gov-link no-visited-state title="Edit">
+          <font-awesome-icon icon="edit" class="custom-icon" title="Edit" />
+        </gov-link>
+
+        <!-- Chil tags -->
+        <gov-list v-if="parentTag.children !== undefined" bullet>
+          <li
+            v-for="(childTag, childIndex) in parentTag.children"
+            :key="
+              `page::settings::tags::parentTag::${parentIndex}::childTag::${childIndex}`
+            "
+          >
+            {{ childTag.name }}
+            <gov-link no-visited-state title="Edit">
+              <font-awesome-icon icon="edit" class="custom-icon" title="Edit" />
+            </gov-link>
+          </li>
         </gov-list>
       </li>
-      <li>Item 4</li>
     </gov-list>
   </div>
 </template>
@@ -27,13 +42,42 @@
 <script>
 import GovBody from '~/components/gov/Body.vue'
 import GovHeadingM from '~/components/gov/HeadingM.vue'
+import GovLink from '~/components/gov/Link.vue'
 import GovList from '~/components/gov/List.vue'
+import Tag from '~/models/Tag'
 
 export default {
   components: {
     GovBody,
     GovHeadingM,
+    GovLink,
     GovList
+  },
+
+  async asyncData() {
+    let tags = await Tag.$get()
+
+    tags.forEach((childTag, index, tags) => {
+      const parentTag = tags.find(
+        (parentTag) => parentTag.id === childTag.parent_tag_id
+      )
+
+      if (parentTag === undefined) {
+        return
+      }
+
+      if (parentTag.children === undefined) {
+        parentTag.children = []
+      }
+
+      parentTag.children.push(childTag)
+    })
+
+    tags = tags.filter((tag) => tag.parent_tag_id === null)
+
+    return {
+      tags
+    }
   }
 }
 </script>

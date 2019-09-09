@@ -181,7 +181,7 @@ export default {
       const columnSortField = column.sort
 
       // Do nothing if the field is not sortable.
-      if (typeof columnSortField === 'undefined') {
+      if (columnSortField === undefined) {
         return
       }
 
@@ -200,7 +200,7 @@ export default {
     },
 
     isSortable(column) {
-      return typeof column.sort !== 'undefined'
+      return column.sort !== undefined
     },
 
     isCurrentSort(column) {

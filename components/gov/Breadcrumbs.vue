@@ -27,7 +27,7 @@ export default {
 
   methods: {
     isActive(item) {
-      return typeof item.url === 'undefined'
+      return item.url === undefined
     }
   }
 }
