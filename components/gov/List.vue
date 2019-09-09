@@ -2,8 +2,8 @@
   <ul
     class="govuk-list"
     :class="{
-      'govuk-list govuk-list--bullet': bullet,
-      'govuk-list govuk-list--number': number
+      'govuk-list--bullet': bullet,
+      'govuk-list--number': number
     }"
   >
     <slot />

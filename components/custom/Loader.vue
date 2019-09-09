@@ -1,6 +1,10 @@
 <template>
   <gov-body>
-    Loading<span v-for="(dot, index) in dots" :key="index">.</span>
+    Loading<span
+      v-for="(dot, index) in dots"
+      :key="`component::custom::Loader::${index}`"
+      >.</span
+    >
   </gov-body>
 </template>
 
