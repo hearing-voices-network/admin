@@ -3,7 +3,12 @@
     <gov-breadcrumbs :items="breadcrumbs" />
 
     <gov-main-wrapper>
-      <gov-grid-row>
+      <custom-loader
+        v-if="loadingContribution"
+        class="govuk-!-margin-bottom-0"
+      />
+
+      <gov-grid-row v-else>
         <gov-grid-column-two-thirds>
           <gov-caption-l>Contributions</gov-caption-l>
           <gov-heading-l>View Contribution</gov-heading-l>
@@ -66,9 +71,7 @@
               </gov-summary-list-value>
             </gov-summary-list-row>
 
-            <gov-summary-list-row
-              v-if="contribution.status === 'changes_requested'"
-            >
+            <gov-summary-list-row v-if="showChangesRequested">
               <gov-summary-list-key>
                 Changes requested
               </gov-summary-list-key>
@@ -108,7 +111,9 @@
               </gov-summary-list-key>
 
               <gov-summary-list-value>
-                <template v-if="contributionTags.length === 0">
+                <custom-loader v-if="loadingAllTags" />
+
+                <template v-else-if="contributionTags.length === 0">
                   No tags
                 </template>
 
@@ -136,6 +141,65 @@
               </gov-summary-list-value>
             </gov-summary-list-row>
           </gov-summary-list>
+
+          <template v-if="!showChangesRequestedInput">
+            <gov-button v-if="showApproveButton" @click="onApprove">
+              Approve
+            </gov-button>
+
+            <gov-button
+              v-if="showRejectButton"
+              warning
+              @click="onShowChangesRequested"
+            >
+              Reject
+            </gov-button>
+          </template>
+
+          <form v-else @submit.prevent="onReject">
+            <gov-form-group
+              :error="contribution.hasErrors('changes_requested')"
+            >
+              <gov-label for="changes_requested">Changes to request</gov-label>
+              <gov-hint>
+                Specify what changes you require the end user to make, in order
+                to make this submission suitable for public consumption.
+              </gov-hint>
+              <gov-error-message
+                v-if="contribution.hasErrors('changes_requested')"
+              >
+                {{ contribution.getError('changes_requested') }}
+              </gov-error-message>
+              <gov-textarea
+                id="changes_requested"
+                v-model="changesRequested"
+                :error="contribution.hasErrors('changes_requested')"
+                :disabled="contribution.submitting"
+                @input="contribution.clearErrors('changes_requested')"
+              />
+            </gov-form-group>
+
+            <gov-button
+              secondary
+              :disabled="contribution.submitting"
+              @click="onHideChangesRequested"
+            >
+              Cancel
+            </gov-button>
+
+            <gov-button
+              type="submit"
+              warning
+              :disabled="contribution.submitting"
+            >
+              <template v-if="!contribution.submitting">
+                Reject
+              </template>
+              <template v-else>
+                Rejecting...
+              </template>
+            </gov-button>
+          </form>
         </gov-grid-column-two-thirds>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -143,16 +207,23 @@
 </template>
 
 <script>
+import CustomLoader from '~/components/custom/Loader.vue'
 import GovBody from '~/components/gov/Body.vue'
 import GovBreadcrumbs from '~/components/gov/Breadcrumbs.vue'
+import GovButton from '~/components/gov/Button.vue'
 import GovCaptionL from '~/components/gov/CaptionL.vue'
+import GovErrorMessage from '~/components/gov/ErrorMessage.vue'
+import GovFormGroup from '~/components/gov/FormGroup.vue'
 import GovGridColumnTwoThirds from '~/components/gov/GridColumnTwoThirds.vue'
 import GovGridRow from '~/components/gov/GridRow.vue'
 import GovHeadingL from '~/components/gov/HeadingL.vue'
+import GovHint from '~/components/gov/Hint.vue'
+import GovLabel from '~/components/gov/Label.vue'
 import GovLink from '~/components/gov/Link.vue'
 import GovList from '~/components/gov/List.vue'
 import GovMainWrapper from '~/components/gov/MainWrapper.vue'
 import GovTag from '~/components/gov/Tag.vue'
+import GovTextarea from '~/components/gov/Textarea.vue'
 import GovWidthContainer from '~/components/gov/WidthContainer.vue'
 import GovSummaryList from '~/components/gov/SummaryList.vue'
 import GovSummaryListKey from '~/components/gov/summary-list/Key.vue'
@@ -164,21 +235,52 @@ import Tag from '~/models/Tag'
 
 export default {
   components: {
+    CustomLoader,
     GovBody,
     GovBreadcrumbs,
+    GovButton,
     GovCaptionL,
+    GovErrorMessage,
+    GovFormGroup,
     GovGridColumnTwoThirds,
     GovGridRow,
     GovHeadingL,
+    GovHint,
+    GovLabel,
     GovLink,
     GovList,
     GovMainWrapper,
     GovTag,
+    GovTextarea,
     GovWidthContainer,
     GovSummaryList,
     GovSummaryListKey,
     GovSummaryListRow,
     GovSummaryListValue
+  },
+
+  data() {
+    return {
+      breadcrumbs: [
+        {
+          text: 'Dashboard',
+          url: { name: 'index' }
+        },
+        {
+          text: 'Contributions',
+          url: { name: 'contributions' }
+        },
+        {
+          text: 'View Contribution'
+        }
+      ],
+      loadingContribution: false,
+      contribution: null,
+      loadingAllTags: false,
+      allTags: null,
+      showChangesRequestedInput: false,
+      changesRequested: ''
+    }
   },
 
   computed: {
@@ -195,29 +297,68 @@ export default {
           }
         })
         .filter((parentTag) => parentTag.children.length > 0)
+    },
+
+    showChangesRequested() {
+      return this.contribution.status === 'changes_requested'
+    },
+
+    showApproveButton() {
+      return this.contribution.status === 'in_review'
+    },
+
+    showRejectButton() {
+      return ['public', 'in_review'].includes(this.contribution.status)
     }
   },
 
-  async asyncData({ route }) {
-    const contribution = await Contribution.$find(route.params.id)
-    contribution.end_user = await EndUser.$find(contribution.end_user_id)
+  created() {
+    this.fetchContribution()
+    this.fetchAllTags()
+  },
 
-    return {
-      breadcrumbs: [
-        {
-          text: 'Dashboard',
-          url: { name: 'index' }
-        },
-        {
-          text: 'Contributions',
-          url: { name: 'contributions' }
-        },
-        {
-          text: 'View Contribution'
+  methods: {
+    async fetchContribution() {
+      this.loadingContribution = true
+
+      const contribution = await Contribution.$find(this.$route.params.id)
+      contribution.end_user = await EndUser.$find(contribution.end_user_id)
+
+      this.contribution = contribution
+      this.loadingContribution = false
+    },
+
+    async fetchAllTags() {
+      this.loadingAllTags = true
+
+      this.allTags = await Tag.hierarchy()
+
+      this.loadingAllTags = false
+    },
+
+    async onApprove() {
+      await this.contribution.approve()
+      this.$router.go()
+    },
+
+    onShowChangesRequested() {
+      this.showChangesRequestedInput = true
+    },
+
+    onHideChangesRequested() {
+      this.showChangesRequestedInput = false
+    },
+
+    async onReject() {
+      try {
+        await this.contribution.reject(this.changesRequested)
+        this.$router.go()
+      } catch (error) {
+        // Handle requests that failed validation.
+        if (!error.response || error.response.status !== 422) {
+          throw error
         }
-      ],
-      contribution,
-      allTags: await Tag.hierarchy()
+      }
     }
   }
 }
