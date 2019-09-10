@@ -45,7 +45,7 @@
             </template>
 
             <template v-slot:2="{ resource: contribution }">
-              <gov-tag>{{ contribution.status }}</gov-tag>
+              <gov-tag>{{ contribution.status.split('_').join(' ') }}</gov-tag>
             </template>
 
             <template v-slot:3="{ resource: contribution }">

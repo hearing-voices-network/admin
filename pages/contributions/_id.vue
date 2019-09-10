@@ -60,17 +60,21 @@
               </gov-summary-list-key>
 
               <gov-summary-list-value>
-                <gov-tag>{{ contribution.status }}</gov-tag>
+                <gov-tag>
+                  {{ contribution.status.split('_').join(' ') }}
+                </gov-tag>
               </gov-summary-list-value>
             </gov-summary-list-row>
 
-            <gov-summary-list-row v-if="contribution.status === ''">
+            <gov-summary-list-row
+              v-if="contribution.status === 'changes_requested'"
+            >
               <gov-summary-list-key>
-                Changes requests
+                Changes requested
               </gov-summary-list-key>
 
               <gov-summary-list-value>
-                {{ contribution.changes_requests || 'N/A' }}
+                {{ contribution.changes_requested }}
               </gov-summary-list-value>
             </gov-summary-list-row>
 
