@@ -152,7 +152,7 @@
               warning
               @click="onShowChangesRequested"
             >
-              Reject
+              Request changes
             </gov-button>
           </template>
 
@@ -193,10 +193,10 @@
               :disabled="contribution.submitting"
             >
               <template v-if="!contribution.submitting">
-                Reject
+                Request changes
               </template>
               <template v-else>
-                Rejecting...
+                Requesting...
               </template>
             </gov-button>
           </form>
