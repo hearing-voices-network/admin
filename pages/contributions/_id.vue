@@ -142,7 +142,7 @@
             </gov-summary-list-row>
           </gov-summary-list>
 
-          <template v-if="!showChangesRequestedInput">
+          <template v-if="!showChangesRequestedInput && !showDeleteWarning">
             <gov-button v-if="showApproveButton" @click="onApprove">
               Approve
             </gov-button>
@@ -154,9 +154,16 @@
             >
               Request changes
             </gov-button>
+
+            <gov-button warning @click="onShowDeleteWarning">
+              Delete
+            </gov-button>
           </template>
 
-          <form v-else @submit.prevent="onReject">
+          <form
+            v-else-if="showChangesRequestedInput"
+            @submit.prevent="onReject"
+          >
             <gov-form-group
               :error="contribution.hasErrors('changes_requested')"
             >
@@ -200,6 +207,34 @@
               </template>
             </gov-button>
           </form>
+
+          <template v-else-if="showDeleteWarning">
+            <gov-warning-text>
+              This action is irreversible. Please be absolutely sure that you
+              want to permanently delete this contribution before continuing.
+            </gov-warning-text>
+
+            <gov-button
+              secondary
+              :disabled="contribution.submitting"
+              @click="onHideDeleteWarning"
+            >
+              Cancel
+            </gov-button>
+
+            <gov-button
+              warning
+              :disabled="contribution.submitting"
+              @click="onDelete"
+            >
+              <template v-if="!contribution.submitting">
+                Delete
+              </template>
+              <template v-else>
+                Deleting...
+              </template>
+            </gov-button>
+          </template>
         </gov-grid-column-two-thirds>
       </gov-grid-row>
     </gov-main-wrapper>
@@ -224,6 +259,7 @@ import GovList from '~/components/gov/List.vue'
 import GovMainWrapper from '~/components/gov/MainWrapper.vue'
 import GovTag from '~/components/gov/Tag.vue'
 import GovTextarea from '~/components/gov/Textarea.vue'
+import GovWarningText from '~/components/gov/WarningText.vue'
 import GovWidthContainer from '~/components/gov/WidthContainer.vue'
 import GovSummaryList from '~/components/gov/SummaryList.vue'
 import GovSummaryListKey from '~/components/gov/summary-list/Key.vue'
@@ -252,6 +288,7 @@ export default {
     GovMainWrapper,
     GovTag,
     GovTextarea,
+    GovWarningText,
     GovWidthContainer,
     GovSummaryList,
     GovSummaryListKey,
@@ -279,7 +316,8 @@ export default {
       loadingAllTags: false,
       allTags: null,
       showChangesRequestedInput: false,
-      changesRequested: ''
+      changesRequested: '',
+      showDeleteWarning: false
     }
   },
 
@@ -349,6 +387,14 @@ export default {
       this.showChangesRequestedInput = false
     },
 
+    onShowDeleteWarning() {
+      this.showDeleteWarning = true
+    },
+
+    onHideDeleteWarning() {
+      this.showDeleteWarning = false
+    },
+
     async onReject() {
       try {
         await this.contribution.reject(this.changesRequested)
@@ -359,6 +405,11 @@ export default {
           throw error
         }
       }
+    },
+
+    async onDelete() {
+      await this.contribution.delete()
+      this.$router.push({ name: 'contributions' })
     }
   }
 }
