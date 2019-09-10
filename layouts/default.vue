@@ -48,7 +48,7 @@ export default {
           },
           {
             text: 'Settings',
-            url: { name: 'settings-index-notifications' }
+            url: { name: 'settings' }
           }
         ]
       },

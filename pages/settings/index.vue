@@ -81,6 +81,10 @@ export default {
         }
       ]
     }
+  },
+
+  created() {
+    this.$router.push({ name: 'settings-index-notifications' })
   }
 }
 </script>
