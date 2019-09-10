@@ -5,7 +5,7 @@
 
       <template v-if="$auth.loggedIn">
         <gov-body>Logged in as {{ $auth.user.data.name }}.</gov-body>
-        <gov-button warning @click="onLogout">Logout</gov-button>
+        <gov-button warning type="button" @click="onLogout">Logout</gov-button>
       </template>
     </gov-main-wrapper>
   </gov-width-container>

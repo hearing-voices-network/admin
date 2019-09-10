@@ -5,7 +5,7 @@
 
       <gov-body>Click below to login.</gov-body>
 
-      <gov-button start @click="onLogin">Login</gov-button>
+      <gov-button start type="button" @click="onLogin">Login</gov-button>
     </gov-main-wrapper>
   </gov-width-container>
 </template>

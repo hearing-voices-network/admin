@@ -9,6 +9,8 @@
       incidunt delectus?
     </gov-body>
 
+    <gov-button type="button" @click="onAddTag">Add tag</gov-button>
+
     <!-- Parent tags -->
     <gov-list bullet>
       <li
@@ -41,6 +43,7 @@
 
 <script>
 import GovBody from '~/components/gov/Body.vue'
+import GovButton from '~/components/gov/Button.vue'
 import GovHeadingM from '~/components/gov/HeadingM.vue'
 import GovLink from '~/components/gov/Link.vue'
 import GovList from '~/components/gov/List.vue'
@@ -49,6 +52,7 @@ import Tag from '~/models/Tag'
 export default {
   components: {
     GovBody,
+    GovButton,
     GovHeadingM,
     GovLink,
     GovList
@@ -57,6 +61,12 @@ export default {
   async asyncData() {
     return {
       tags: await Tag.hierarchy()
+    }
+  },
+
+  methods: {
+    onAddTag() {
+      this.$router.push({ name: 'settings-tags-create' })
     }
   }
 }

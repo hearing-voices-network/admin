@@ -143,19 +143,24 @@
           </gov-summary-list>
 
           <template v-if="!showChangesRequestedInput && !showDeleteWarning">
-            <gov-button v-if="showApproveButton" @click="onApprove">
+            <gov-button
+              v-if="showApproveButton"
+              type="button"
+              @click="onApprove"
+            >
               Approve
             </gov-button>
 
             <gov-button
               v-if="showRejectButton"
               warning
+              type="button"
               @click="onShowChangesRequested"
             >
               Request changes
             </gov-button>
 
-            <gov-button warning @click="onShowDeleteWarning">
+            <gov-button warning type="button" @click="onShowDeleteWarning">
               Delete
             </gov-button>
           </template>
@@ -188,6 +193,7 @@
 
             <gov-button
               secondary
+              type="button"
               :disabled="contribution.submitting"
               @click="onHideChangesRequested"
             >
@@ -216,6 +222,7 @@
 
             <gov-button
               secondary
+              type="button"
               :disabled="contribution.submitting"
               @click="onHideDeleteWarning"
             >

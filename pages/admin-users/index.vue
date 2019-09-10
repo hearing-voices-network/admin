@@ -13,6 +13,8 @@
             nesciunt omnis aliquam dicta provident laboriosam alias suscipit?
             Soluta ducimus incidunt delectus?
           </gov-body>
+
+          <gov-button type="button" @click="onAddAdmin">Add admin</gov-button>
         </gov-grid-column-two-thirds>
       </gov-grid-row>
 
@@ -57,6 +59,7 @@
 import CustomResourceTable from '~/components/custom/ResourceTable.vue'
 import GovBody from '~/components/gov/Body.vue'
 import GovBreadcrumbs from '~/components/gov/Breadcrumbs.vue'
+import GovButton from '~/components/gov/Button.vue'
 import GovGridColumnFull from '~/components/gov/GridColumnFull.vue'
 import GovGridColumnTwoThirds from '~/components/gov/GridColumnTwoThirds.vue'
 import GovGridRow from '~/components/gov/GridRow.vue'
@@ -71,6 +74,7 @@ export default {
     CustomResourceTable,
     GovBody,
     GovBreadcrumbs,
+    GovButton,
     GovGridColumnFull,
     GovGridColumnTwoThirds,
     GovGridRow,
@@ -106,6 +110,12 @@ export default {
         }
       ],
       model: Admin
+    }
+  },
+
+  methods: {
+    onAddAdmin() {
+      this.$router.push({ name: 'admins-create' })
     }
   }
 }
