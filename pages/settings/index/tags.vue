@@ -50,6 +50,8 @@ import GovList from '~/components/gov/List.vue'
 import Tag from '~/models/Tag'
 
 export default {
+  authenticated: true,
+
   components: {
     GovBody,
     GovButton,

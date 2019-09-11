@@ -39,6 +39,8 @@ import GovTabs from '~/components/gov/Tabs.vue'
 import GovWidthContainer from '~/components/gov/WidthContainer.vue'
 
 export default {
+  authenticated: true,
+
   components: {
     GovBody,
     GovBreadcrumbs,

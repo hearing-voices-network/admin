@@ -79,6 +79,8 @@ import GovWidthContainer from '~/components/gov/WidthContainer.vue'
 import EndUser from '~/models/EndUser'
 
 export default {
+  authenticated: true,
+
   components: {
     CustomResourceTable,
     GovBody,

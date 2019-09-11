@@ -3,7 +3,7 @@
     <gov-skip-link />
     <gov-header
       :service-name="appName"
-      :navigation="$auth.loggedIn ? header.navigation : []"
+      :navigation="$store.getters.loggedIn ? header.navigation : []"
     />
 
     <nuxt />

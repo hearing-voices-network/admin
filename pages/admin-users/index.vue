@@ -70,6 +70,8 @@ import GovWidthContainer from '~/components/gov/WidthContainer.vue'
 import Admin from '~/models/Admin'
 
 export default {
+  authenticated: true,
+
   components: {
     CustomResourceTable,
     GovBody,
