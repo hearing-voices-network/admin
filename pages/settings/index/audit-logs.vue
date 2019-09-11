@@ -80,6 +80,8 @@ import Audit from '~/models/Audit'
 import EndUser from '~/models/EndUser'
 
 export default {
+  authenticated: true,
+
   components: {
     CustomLoader,
     CustomResourceTable,

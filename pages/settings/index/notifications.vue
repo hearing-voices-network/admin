@@ -74,6 +74,8 @@ import GovTag from '~/components/gov/Tag.vue'
 import Notification from '~/models/Notification'
 
 export default {
+  authenticated: true,
+
   components: {
     CustomResourceTable,
     GovHeadingM,

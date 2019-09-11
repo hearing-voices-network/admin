@@ -87,6 +87,8 @@ import Contribution from '~/models/Contribution'
 import EndUser from '~/models/EndUser'
 
 export default {
+  authenticated: true,
+
   components: {
     CustomLoader,
     CustomResourceTable,

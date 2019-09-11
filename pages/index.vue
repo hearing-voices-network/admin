@@ -1,11 +1,16 @@
 <template>
   <gov-width-container>
     <gov-main-wrapper auto-spacing>
-      <gov-heading-l>Dashboard</gov-heading-l>
+      <template v-if="$store.getters.loggedIn">
+        <gov-heading-l>Dashboard</gov-heading-l>
+        <gov-body>Logged in as {{ $store.state.oauth.user.name }}.</gov-body>
+        <gov-button warning type="button" @click="$logout">Logout</gov-button>
+      </template>
 
-      <template v-if="$auth.loggedIn">
-        <gov-body>Logged in as {{ $auth.user.data.name }}.</gov-body>
-        <gov-button warning type="button" @click="onLogout">Logout</gov-button>
+      <template v-else>
+        <gov-heading-l>{{ appName }}</gov-heading-l>
+        <gov-body>Click below to login.</gov-body>
+        <gov-button start type="button" @click="$login">Login</gov-button>
       </template>
     </gov-main-wrapper>
   </gov-width-container>
@@ -27,10 +32,9 @@ export default {
     GovWidthContainer
   },
 
-  methods: {
-    async onLogout() {
-      await this.$auth.logout()
-      this.$router.push({ name: 'login' })
+  data() {
+    return {
+      appName: process.env.appName
     }
   }
 }

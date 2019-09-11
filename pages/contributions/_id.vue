@@ -277,6 +277,8 @@ import EndUser from '~/models/EndUser'
 import Tag from '~/models/Tag'
 
 export default {
+  authenticated: true,
+
   components: {
     CustomLoader,
     GovBody,

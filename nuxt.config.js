@@ -1,3 +1,4 @@
+import axios from 'axios'
 require('dotenv').config()
 
 export default {
@@ -43,7 +44,11 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~plugins/vue-api-query', '~plugins/font-awesome'],
+  plugins: [
+    '~plugins/axios',
+    '~plugins/vue-api-query',
+    '~plugins/font-awesome'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -57,10 +62,10 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    // Doc: https://auth.nuxtjs.org
-    '@nuxtjs/auth',
     // Doc: https://github.com/nuxt-community/moment-module
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
+    // Doc: https://github.com/SohoHouse/nuxt-oauth
+    'nuxt-oauth'
   ],
   /*
    ** Axios module configuration
@@ -68,17 +73,24 @@ export default {
    */
   axios: {},
   /*
-   ** Auth module configuration
-   ** See https://auth.nuxtjs.org/guide/setup.html
+   ** OAuth module configuration
+   ** See https://github.com/SohoHouse/nuxt-oauth
    */
-  auth: {
-    strategies: {
-      'laravel.passport': {
-        url: process.env.API_OAUTH_URL,
-        client_id: process.env.API_OAUTH_CLIENT_ID,
-        client_secret: process.env.API_OAUTH_CLIENT_SECRET,
-        userinfo_endpoint: `${process.env.API_BASE_URL}/admins/me`
-      }
+  oauth: {
+    sessionName: 'oauthSession',
+    secretKey: process.env.API_OAUTH_SECRET_KEY,
+    oauthHost: process.env.API_OAUTH_URL,
+    oauthClientID: process.env.API_OAUTH_CLIENT_ID,
+    oauthClientSecret: process.env.API_OAUTH_CLIENT_SECRET,
+    fetchUser: (accessToken) => {
+      const userInfoEndpoint = `${process.env.API_BASE_URL}/admins/me`
+      return axios
+        .get(userInfoEndpoint, {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        })
+        .then(({ data: { data: user } }) => {
+          return user
+        })
     }
   },
   /*
@@ -87,7 +99,7 @@ export default {
    */
   moment: {
     locales: ['en-gb'],
-    defaultLocale: 'en-gb'
+    defaultLocale: 'gb'
   },
   /*
    ** Router configuration
