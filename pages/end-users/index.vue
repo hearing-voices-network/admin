@@ -128,7 +128,7 @@ export default {
 
   methods: {
     onAddEndUser() {
-      this.$route.push({ name: 'end-users-create' })
+      this.$router.push({ name: 'end-users-create' })
     }
   }
 }
