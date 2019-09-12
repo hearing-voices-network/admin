@@ -1,8 +1,8 @@
 <template>
-  <textarea
-    class="govuk-textarea"
-    :class="{ 'govuk-textarea--error': error }"
-    :rows="rows"
+  <input
+    class="govuk-input"
+    :class="{ 'govuk-input--error': error }"
+    :type="type"
     :value="value"
     @input="onInput($event.target.value)"
   />
@@ -24,10 +24,10 @@ export default {
       default: false
     },
 
-    rows: {
-      type: Number,
+    type: {
+      type: String,
       required: false,
-      default: 5
+      default: 'text'
     }
   },
 

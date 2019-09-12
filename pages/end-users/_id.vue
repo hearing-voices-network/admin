@@ -275,7 +275,7 @@ export default {
     },
 
     async onDelete() {
-      await this.endUser.delete()
+      await this.endUser.forceDelete()
       this.$router.push({ name: 'end-users' })
     }
   }
