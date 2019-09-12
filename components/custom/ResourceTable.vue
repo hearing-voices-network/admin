@@ -109,6 +109,12 @@ export default {
       required: true
     },
 
+    filters: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
+
     defaultSort: {
       type: String,
       required: false,
@@ -152,10 +158,16 @@ export default {
     async fetchResources() {
       this.loading = true
 
-      const { data, meta } = await this.model
-        .orderBy(this.sort)
-        .page(this.currentPage)
-        .get()
+      // Prepare the query.
+      let query = this.model.orderBy(this.sort).page(this.currentPage)
+
+      // Append any filters.
+      for (const filter of this.filters) {
+        query = query.where(filter.field, filter.value)
+      }
+
+      // Run the query.
+      const { data, meta } = await query.get()
       this.resources = data
       this.currentPage = meta.current_page
       this.totalPages = meta.last_page
