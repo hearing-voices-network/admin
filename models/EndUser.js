@@ -9,7 +9,7 @@ export default class EndUser extends Model {
     const optionalFields = ['country', 'birth_year', 'gender', 'ethnicity']
     const data = Object.assign({}, this)
     for (const field in data) {
-      if (optionalFields.includes(field) && data[field] === '') {
+      if (optionalFields.includes(field) && [null, ''].includes(data[field])) {
         delete data[field]
       }
     }
@@ -26,33 +26,5 @@ export default class EndUser extends Model {
       const self = Object.assign(this, response.data.data)
       return self
     })
-  }
-
-  softDelete() {
-    if (!this.hasId()) {
-      throw new Error('This model has a empty ID.')
-    }
-
-    return this.request({
-      url: this.endpoint(),
-      method: 'DELETE',
-      data: {
-        type: 'soft_delete'
-      }
-    }).then((response) => response)
-  }
-
-  forceDelete() {
-    if (!this.hasId()) {
-      throw new Error('This model has a empty ID.')
-    }
-
-    return this.request({
-      url: this.endpoint(),
-      method: 'DELETE',
-      data: {
-        type: 'force_delete'
-      }
-    }).then((response) => response)
   }
 }

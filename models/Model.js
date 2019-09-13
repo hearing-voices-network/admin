@@ -8,6 +8,58 @@ export default class Model extends BaseModel {
     this._errors = {}
   }
 
+  _create() {
+    // Overridden to use nested data object in response.
+    return this.request({
+      method: 'POST',
+      url: this.endpoint(),
+      data: this
+    }).then((response) => {
+      const self = Object.assign(this, response.data.data)
+      return self
+    })
+  }
+
+  _update() {
+    // Overridden to use nested data object in response.
+    return this.request({
+      method: 'PUT',
+      url: this.endpoint(),
+      data: this
+    }).then((response) => {
+      const self = Object.assign(this, response.data.data)
+      return self
+    })
+  }
+
+  softDelete() {
+    if (!this.hasId()) {
+      throw new Error('This model has a empty ID.')
+    }
+
+    return this.request({
+      url: this.endpoint(),
+      method: 'DELETE',
+      data: {
+        type: 'soft_delete'
+      }
+    }).then((response) => response)
+  }
+
+  forceDelete() {
+    if (!this.hasId()) {
+      throw new Error('This model has a empty ID.')
+    }
+
+    return this.request({
+      url: this.endpoint(),
+      method: 'DELETE',
+      data: {
+        type: 'force_delete'
+      }
+    }).then((response) => response)
+  }
+
   get submitting() {
     return this._submitting
   }
