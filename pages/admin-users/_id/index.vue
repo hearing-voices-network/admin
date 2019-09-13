@@ -2,10 +2,12 @@
   <gov-width-container>
     <gov-breadcrumbs :items="breadcrumbs" />
 
-    <gov-main-wrapper>
-      <custom-loader v-if="loadingAdmin" class="govuk-!-margin-bottom-0" />
+    <gov-main-wrapper v-if="loadingAdmin">
+      <custom-loader class="govuk-!-margin-bottom-0" />
+    </gov-main-wrapper>
 
-      <gov-grid-row v-else>
+    <gov-main-wrapper v-else>
+      <gov-grid-row>
         <gov-grid-column-two-thirds>
           <gov-caption-l>Admin Users</gov-caption-l>
           <gov-heading-l>View Admin User</gov-heading-l>
@@ -177,7 +179,7 @@ export default {
 
     onEdit() {
       this.$router.push({
-        name: 'admin-users-edit',
+        name: 'admin-users-id-edit',
         params: { id: this.$route.params.id }
       })
     }

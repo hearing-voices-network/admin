@@ -2,11 +2,15 @@
   <gov-width-container>
     <gov-breadcrumbs :items="breadcrumbs" />
 
-    <gov-main-wrapper>
+    <gov-main-wrapper v-if="loadingAdmin">
+      <custom-loader class="govuk-!-margin-bottom-0" />
+    </gov-main-wrapper>
+
+    <gov-main-wrapper v-else>
       <gov-grid-row>
         <gov-grid-column-two-thirds>
           <gov-caption-l>Admin Users</gov-caption-l>
-          <gov-heading-l>Create Admin User</gov-heading-l>
+          <gov-heading-l>Edit Admin User</gov-heading-l>
 
           <gov-body>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi,
@@ -15,7 +19,7 @@
             Soluta ducimus incidunt delectus?
           </gov-body>
 
-          <form @submit.prevent="onCreate">
+          <form @submit.prevent="onUpdate">
             <gov-form-group :error="admin.hasErrors('name')">
               <gov-label for="name">Name</gov-label>
               <gov-error-message v-if="admin.hasErrors('name')">
@@ -87,10 +91,10 @@
 
             <gov-button type="submit" :disabled="admin.submitting">
               <template v-if="!admin.submitting">
-                Create
+                Update
               </template>
               <template v-else>
-                Creating...
+                Updating...
               </template>
             </gov-button>
           </form>
@@ -101,6 +105,7 @@
 </template>
 
 <script>
+import CustomLoader from '~/components/custom/Loader.vue'
 import GovBody from '~/components/gov/Body.vue'
 import GovBreadcrumbs from '~/components/gov/Breadcrumbs.vue'
 import GovButton from '~/components/gov/Button.vue'
@@ -120,6 +125,7 @@ export default {
   authenticated: true,
 
   components: {
+    CustomLoader,
     GovBody,
     GovBreadcrumbs,
     GovButton,
@@ -147,20 +153,34 @@ export default {
           url: { name: 'admin-users' }
         },
         {
-          text: 'Create Admin User'
+          text: 'View Admin User',
+          url: { name: 'admin-users-id', params: { id: this.$route.params.id } }
+        },
+        {
+          text: 'Edit Admin User'
         }
       ],
-      admin: new Admin({
-        name: null,
-        email: null,
-        phone: null,
-        password: null
-      })
+      loadingAdmin: false,
+      admin: null
     }
   },
 
+  created() {
+    this.fetchAdmin()
+  },
+
   methods: {
-    async onCreate() {
+    async fetchAdmin() {
+      this.loadingAdmin = true
+
+      const admin = await Admin.$find(this.$route.params.id)
+      admin.password = null
+      this.admin = admin
+
+      this.loadingAdmin = false
+    },
+
+    async onUpdate() {
       try {
         await this.admin.save()
         console.dir(this.admin)
@@ -177,7 +197,10 @@ export default {
     },
 
     onCancel() {
-      this.$router.push({ name: 'admin-users' })
+      this.$router.push({
+        name: 'admin-users-id',
+        params: { id: this.$route.params.id }
+      })
     }
   }
 }

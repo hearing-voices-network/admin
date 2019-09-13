@@ -5,26 +5,21 @@ export default class EndUser extends Model {
     return 'end-users'
   }
 
-  _create() {
-    const optionalFields = ['country', 'birth_year', 'gender', 'ethnicity']
-    const data = Object.assign({}, this)
-    for (const field in data) {
-      if (optionalFields.includes(field) && [null, ''].includes(data[field])) {
-        delete data[field]
+  get optionalFields() {
+    return {
+      create: ['country', 'birth_year', 'gender', 'ethnicity'],
+      update: ['country', 'birth_year', 'gender', 'ethnicity']
+    }
+  }
+
+  get fieldParsers() {
+    return {
+      create: {
+        birth_year: 'int'
+      },
+      update: {
+        birth_year: 'int'
       }
     }
-
-    if (data.birth_year !== undefined) {
-      data.birth_year = parseInt(data.birth_year)
-    }
-
-    return this.request({
-      method: 'POST',
-      url: this.endpoint(),
-      data
-    }).then((response) => {
-      const self = Object.assign(this, response.data.data)
-      return self
-    })
   }
 }
