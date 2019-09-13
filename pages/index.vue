@@ -1,7 +1,7 @@
 <template>
   <gov-width-container>
     <gov-main-wrapper auto-spacing>
-      <template v-if="$store.getters.loggedIn">
+      <template v-if="$store.state.oauth.accessToken">
         <gov-heading-l>Dashboard</gov-heading-l>
         <gov-body>Logged in as {{ $store.state.oauth.user.name }}.</gov-body>
         <gov-button warning type="button" @click="$logout">Logout</gov-button>
