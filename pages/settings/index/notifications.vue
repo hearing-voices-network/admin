@@ -2,6 +2,13 @@
   <div>
     <gov-heading-m>Notifications</gov-heading-m>
 
+    <gov-body>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi,
+      voluptate. Quae eius, fuga excepturi enim quam veritatis quidem nesciunt
+      omnis aliquam dicta provident laboriosam alias suscipit? Soluta ducimus
+      incidunt delectus?
+    </gov-body>
+
     <custom-resource-table
       :columns="columns"
       :model="model"
@@ -68,6 +75,7 @@
 
 <script>
 import CustomResourceTable from '~/components/custom/ResourceTable.vue'
+import GovBody from '~/components/gov/Body.vue'
 import GovHeadingM from '~/components/gov/HeadingM.vue'
 import GovLink from '~/components/gov/Link.vue'
 import GovTag from '~/components/gov/Tag.vue'
@@ -78,6 +86,7 @@ export default {
 
   components: {
     CustomResourceTable,
+    GovBody,
     GovHeadingM,
     GovLink,
     GovTag

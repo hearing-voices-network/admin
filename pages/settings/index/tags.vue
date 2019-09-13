@@ -11,8 +11,10 @@
 
     <gov-button type="button" @click="onAddTag">Add tag</gov-button>
 
+    <custom-loader v-if="loadingTags" />
+
     <!-- Parent tags -->
-    <gov-list bullet>
+    <gov-list v-else bullet>
       <li
         v-for="(parentTag, parentIndex) in tags"
         :key="`page::settings::tags::parentTag::${parentIndex}`"
@@ -42,6 +44,7 @@
 </template>
 
 <script>
+import CustomLoader from '~/components/custom/Loader.vue'
 import GovBody from '~/components/gov/Body.vue'
 import GovButton from '~/components/gov/Button.vue'
 import GovHeadingM from '~/components/gov/HeadingM.vue'
@@ -53,6 +56,7 @@ export default {
   authenticated: true,
 
   components: {
+    CustomLoader,
     GovBody,
     GovButton,
     GovHeadingM,
@@ -60,13 +64,26 @@ export default {
     GovList
   },
 
-  async asyncData() {
+  data() {
     return {
-      tags: await Tag.hierarchy()
+      loadingTags: false,
+      tags: null
     }
   },
 
+  created() {
+    this.fetchTags()
+  },
+
   methods: {
+    async fetchTags() {
+      this.loadingTags = true
+
+      this.tags = await Tag.hierarchy()
+
+      this.loadingTags = false
+    },
+
     onAddTag() {
       this.$router.push({ name: 'settings-tags-create' })
     }
