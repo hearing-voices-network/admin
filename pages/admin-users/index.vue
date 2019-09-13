@@ -117,7 +117,7 @@ export default {
 
   methods: {
     onAddAdmin() {
-      this.$router.push({ name: 'admins-create' })
+      this.$router.push({ name: 'admin-users-create' })
     }
   }
 }

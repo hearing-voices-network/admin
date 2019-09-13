@@ -107,6 +107,15 @@
               />
             </gov-form-group>
 
+            <gov-button
+              secondary
+              type="button"
+              :disabled="endUser.submitting"
+              @click="onCancel"
+            >
+              Cancel
+            </gov-button>
+
             <gov-button type="submit" :disabled="endUser.submitting">
               <template v-if="!endUser.submitting">
                 Create
@@ -197,6 +206,10 @@ export default {
           throw error
         }
       }
+    },
+
+    onCancel() {
+      this.$router.push({ name: 'end-users' })
     }
   }
 }

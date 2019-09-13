@@ -2,10 +2,12 @@
   <gov-width-container>
     <gov-breadcrumbs :items="breadcrumbs" />
 
-    <gov-main-wrapper>
-      <custom-loader v-if="loadingEndUser" class="govuk-!-margin-bottom-0" />
+    <gov-main-wrapper v-if="loadingEndUser">
+      <custom-loader class="govuk-!-margin-bottom-0" />
+    </gov-main-wrapper>
 
-      <gov-grid-row v-else>
+    <gov-main-wrapper v-else>
+      <gov-grid-row>
         <gov-grid-column-two-thirds>
           <gov-caption-l>End Users</gov-caption-l>
           <gov-heading-l>View End User</gov-heading-l>

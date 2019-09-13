@@ -2,13 +2,12 @@
   <gov-width-container>
     <gov-breadcrumbs :items="breadcrumbs" />
 
-    <gov-main-wrapper>
-      <custom-loader
-        v-if="loadingContribution"
-        class="govuk-!-margin-bottom-0"
-      />
+    <gov-main-wrapper v-if="loadingContribution">
+      <custom-loader class="govuk-!-margin-bottom-0" />
+    </gov-main-wrapper>
 
-      <gov-grid-row v-else>
+    <gov-main-wrapper v-else>
+      <gov-grid-row>
         <gov-grid-column-two-thirds>
           <gov-caption-l>Contributions</gov-caption-l>
           <gov-heading-l>View Contribution</gov-heading-l>
