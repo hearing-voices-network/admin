@@ -85,8 +85,20 @@ export default {
     }
   },
 
-  created() {
-    this.$router.push({ name: 'settings-index-notifications' })
+  watch: {
+    $route: {
+      immediate: true,
+      deep: true,
+      /* eslint-disable object-shorthand */
+      /* eslint-disable prettier/prettier */
+      handler: function (to) {
+        if (to.name === 'settings') {
+          this.$router.push({ name: 'settings-index-notifications' })
+        }
+      }
+      /* eslint-enable object-shorthand */
+      /* eslint-enable prettier/prettier */
+    }
   }
 }
 </script>
