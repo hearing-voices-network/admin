@@ -132,6 +132,97 @@
             </gov-form-group>
           </gov-fieldset>
 
+          <gov-fieldset>
+            <gov-fieldset-legend size="s">
+              <gov-fieldset-heading tag="h5">
+                Updated contribution (admin)
+              </gov-fieldset-heading>
+            </gov-fieldset-legend>
+
+            <gov-form-group
+              :error="
+                settings.hasErrors(
+                  'email_content.admin.updated_contribution.subject'
+                )
+              "
+            >
+              <gov-label for="email_content.admin.updated_contribution.subject">
+                Subject
+              </gov-label>
+              <gov-error-message
+                v-if="
+                  settings.hasErrors(
+                    'email_content.admin.updated_contribution.subject'
+                  )
+                "
+              >
+                {{
+                  settings.getError(
+                    'email_content.admin.updated_contribution.subject'
+                  )
+                }}
+              </gov-error-message>
+              <gov-input
+                id="email_content.admin.updated_contribution.subject"
+                v-model="
+                  settings.email_content.admin.updated_contribution.subject
+                "
+                type="text"
+                :error="
+                  settings.hasErrors(
+                    'email_content.admin.updated_contribution.subject'
+                  )
+                "
+                :disabled="settings.submitting"
+                @input="
+                  settings.clearErrors(
+                    'email_content.admin.updated_contribution.subject'
+                  )
+                "
+              />
+            </gov-form-group>
+
+            <gov-form-group
+              :error="
+                settings.hasErrors(
+                  'email_content.admin.updated_contribution.body'
+                )
+              "
+            >
+              <gov-label for="email_content.admin.updated_contribution.body">
+                Body
+              </gov-label>
+              <gov-error-message
+                v-if="
+                  settings.hasErrors(
+                    'email_content.admin.updated_contribution.body'
+                  )
+                "
+              >
+                {{
+                  settings.getError(
+                    'email_content.admin.updated_contribution.body'
+                  )
+                }}
+              </gov-error-message>
+              <gov-textarea
+                id="email_content.admin.updated_contribution.body"
+                v-model="settings.email_content.admin.updated_contribution.body"
+                :error="
+                  settings.hasErrors(
+                    'email_content.admin.updated_contribution.body'
+                  )
+                "
+                :disabled="settings.submitting"
+                @input="
+                  settings.clearErrors(
+                    'email_content.admin.updated_contribution.body'
+                  )
+                "
+              />
+            </gov-form-group>
+          </gov-fieldset>
+
           <gov-button type="submit" :disabled="settings.submitting">
             <template v-if="!settings.submitting">
               Update
