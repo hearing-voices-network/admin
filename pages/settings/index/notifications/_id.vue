@@ -15,16 +15,6 @@
     <gov-summary-list v-else>
       <gov-summary-list-row>
         <gov-summary-list-key>
-          User
-        </gov-summary-list-key>
-
-        <gov-summary-list-value>
-          TODO
-        </gov-summary-list-value>
-      </gov-summary-list-row>
-
-      <gov-summary-list-row>
-        <gov-summary-list-key>
           Channel
         </gov-summary-list-key>
 
@@ -51,7 +41,45 @@
         </gov-summary-list-key>
 
         <gov-summary-list-value>
-          {{ notification.recipient }}
+          <gov-link
+            v-if="notification.admin_id !== null"
+            :url="{
+              name: 'admin-users-id',
+              params: { id: notification.admin_id }
+            }"
+            no-visited-state
+          >
+            {{ notification.recipient }}
+          </gov-link>
+
+          <gov-link
+            v-else-if="notification.end_user_id !== null"
+            :url="{
+              name: 'end-users-id',
+              params: { id: notification.end_user_id }
+            }"
+            no-visited-state
+          >
+            {{ notification.recipient }}
+          </gov-link>
+
+          <template v-else>
+            {{ notification.recipient }}
+          </template>
+        </gov-summary-list-value>
+      </gov-summary-list-row>
+
+      <gov-summary-list-row>
+        <gov-summary-list-key>
+          Recipient type
+        </gov-summary-list-key>
+
+        <gov-summary-list-value>
+          <gov-tag v-if="notification.admin_id !== null">admin</gov-tag>
+          <gov-tag v-else-if="notification.end_user_id !== null">
+            end user
+          </gov-tag>
+          <gov-tag v-else>guest</gov-tag>
         </gov-summary-list-value>
       </gov-summary-list-row>
 
@@ -99,6 +127,7 @@ import GovCaptionM from '~/components/gov/CaptionM'
 import GovHeadingM from '~/components/gov/HeadingM'
 import GovBody from '~/components/gov/Body'
 import GovTag from '~/components/gov/Tag'
+import GovLink from '~/components/gov/Link'
 import GovSummaryList from '~/components/gov/SummaryList'
 import GovSummaryListRow from '~/components/gov/summary-list/Row'
 import GovSummaryListKey from '~/components/gov/summary-list/Key'
@@ -114,6 +143,7 @@ export default {
     GovHeadingM,
     GovBody,
     GovTag,
+    GovLink,
     GovSummaryList,
     GovSummaryListRow,
     GovSummaryListKey,
