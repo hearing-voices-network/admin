@@ -19,9 +19,15 @@
         v-for="(parentTag, parentIndex) in tags"
         :key="`page::settings::tags::parentTag::${parentIndex}`"
       >
-        {{ parentTag.name }}
-        <gov-link no-visited-state title="Edit">
-          <font-awesome-icon icon="edit" class="custom-icon" title="Edit" />
+        <gov-link
+          :url="{
+            name: 'settings-index-tags-id',
+            params: { id: parentTag.id }
+          }"
+          no-visited-state
+          title="Edit"
+        >
+          {{ parentTag.name }}
         </gov-link>
 
         <!-- Chil tags -->
@@ -32,9 +38,15 @@
               `page::settings::tags::parentTag::${parentIndex}::childTag::${childIndex}`
             "
           >
-            {{ childTag.name }}
-            <gov-link no-visited-state title="Edit">
-              <font-awesome-icon icon="edit" class="custom-icon" title="Edit" />
+            <gov-link
+              :url="{
+                name: 'settings-index-tags-id',
+                params: { id: childTag.id }
+              }"
+              no-visited-state
+              title="Edit"
+            >
+              {{ childTag.name }}
             </gov-link>
           </li>
         </gov-list>
