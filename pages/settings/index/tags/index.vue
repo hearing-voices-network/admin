@@ -19,7 +19,15 @@
         v-for="(parentTag, parentIndex) in tags"
         :key="`page::settings::tags::parentTag::${parentIndex}`"
       >
-        {{ parentTag.name }}
+        <gov-link
+          :url="{
+            name: 'settings-index-tags-id',
+            params: { id: parentTag.id }
+          }"
+          no-visited-state
+        >
+          {{ parentTag.name }}
+        </gov-link>
 
         <!-- Chil tags -->
         <gov-list v-if="parentTag.children !== undefined" bullet>
@@ -29,7 +37,15 @@
               `page::settings::tags::parentTag::${parentIndex}::childTag::${childIndex}`
             "
           >
-            {{ childTag.name }}
+            <gov-link
+              :url="{
+                name: 'settings-index-tags-id',
+                params: { id: childTag.id }
+              }"
+              no-visited-state
+            >
+              {{ childTag.name }}
+            </gov-link>
           </li>
         </gov-list>
       </li>
@@ -42,6 +58,7 @@ import CustomLoader from '~/components/custom/Loader.vue'
 import GovBody from '~/components/gov/Body.vue'
 import GovButton from '~/components/gov/Button.vue'
 import GovHeadingM from '~/components/gov/HeadingM.vue'
+import GovLink from '~/components/gov/Link.vue'
 import GovList from '~/components/gov/List.vue'
 import Tag from '~/models/Tag'
 
@@ -53,6 +70,7 @@ export default {
     GovBody,
     GovButton,
     GovHeadingM,
+    GovLink,
     GovList
   },
 
