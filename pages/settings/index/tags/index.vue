@@ -19,16 +19,7 @@
         v-for="(parentTag, parentIndex) in tags"
         :key="`page::settings::tags::parentTag::${parentIndex}`"
       >
-        <gov-link
-          :url="{
-            name: 'settings-index-tags-id',
-            params: { id: parentTag.id }
-          }"
-          no-visited-state
-          title="Edit"
-        >
-          {{ parentTag.name }}
-        </gov-link>
+        {{ parentTag.name }}
 
         <!-- Chil tags -->
         <gov-list v-if="parentTag.children !== undefined" bullet>
@@ -38,16 +29,7 @@
               `page::settings::tags::parentTag::${parentIndex}::childTag::${childIndex}`
             "
           >
-            <gov-link
-              :url="{
-                name: 'settings-index-tags-id',
-                params: { id: childTag.id }
-              }"
-              no-visited-state
-              title="Edit"
-            >
-              {{ childTag.name }}
-            </gov-link>
+            {{ childTag.name }}
           </li>
         </gov-list>
       </li>
@@ -60,7 +42,6 @@ import CustomLoader from '~/components/custom/Loader.vue'
 import GovBody from '~/components/gov/Body.vue'
 import GovButton from '~/components/gov/Button.vue'
 import GovHeadingM from '~/components/gov/HeadingM.vue'
-import GovLink from '~/components/gov/Link.vue'
 import GovList from '~/components/gov/List.vue'
 import Tag from '~/models/Tag'
 
@@ -72,7 +53,6 @@ export default {
     GovBody,
     GovButton,
     GovHeadingM,
-    GovLink,
     GovList
   },
 
@@ -97,7 +77,7 @@ export default {
     },
 
     onAddTag() {
-      this.$router.push({ name: 'settings-tags-create' })
+      this.$router.push({ name: 'settings-index-tags-create' })
     }
   }
 }

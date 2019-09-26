@@ -821,8 +821,15 @@ export default {
     },
 
     async onUpdate() {
-      await this.settings.save()
-      this.$router.go()
+      try {
+        await this.settings.save()
+        this.$router.go()
+      } catch (error) {
+        // Handle requests that failed validation.
+        if (!error.response || error.response.status !== 422) {
+          throw error
+        }
+      }
     }
   }
 }
