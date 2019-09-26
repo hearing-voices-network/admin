@@ -64,7 +64,7 @@
       <template v-slot:actions="{ resource: audit }">
         <gov-link
           :url="{
-            name: 'setting-index-audit-logs-id',
+            name: 'settings-index-audit-logs-id',
             params: { id: audit.id }
           }"
           no-visited-state
