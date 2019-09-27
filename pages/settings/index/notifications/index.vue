@@ -61,7 +61,7 @@
       <template v-slot:actions="{ resource: notification }">
         <gov-link
           :url="{
-            name: 'setting-index-notifications-id',
+            name: 'settings-index-notifications-id',
             params: { id: notification.id }
           }"
           no-visited-state
