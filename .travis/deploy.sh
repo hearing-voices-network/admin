@@ -29,8 +29,16 @@ aws secretsmanager get-secret-value \
 
 # Build.
 echo "Building..."
-node_modules/.bin/vue-cli-service build --mode ${ENVIRONMENT}
+npm run generate
 
 # Deploy to S3.
-echo "Deploying..."
-node_modules/.bin/vue-cli-service s3-deploy --mode ${ENVIRONMENT}
+echo "Deploying to S3..."
+aws s3 sync ./dist s3://${AWS_S3_BUCKET}/ \
+  --acl public-read \
+  --delete
+
+# Invalidate CloudFornt distribution.
+echo "Invalidating CloudFront distribution..."
+aws cloudfront create-invalidation \
+  --distribution-id $AWS_DISTRIBUTION_ID \
+  --paths /*
