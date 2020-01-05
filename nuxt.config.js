@@ -2,6 +2,7 @@ import axios from 'axios'
 require('dotenv').config()
 
 export default {
+  rootDir: __dirname,
   mode: 'universal',
   /*
    ** Environment variables

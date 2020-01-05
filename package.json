@@ -24,6 +24,7 @@
     "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
     "nuxt-oauth": "^2.1.1",
+    "nuxt-start": "^2.11.0",
     "sass-loader": "^7.1.0",
     "vue-api-query": "^1.5.1"
   },

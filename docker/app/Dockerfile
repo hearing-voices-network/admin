@@ -23,4 +23,4 @@ EXPOSE 80
 WORKDIR /var/www/html
 
 # Set default command to start the app using PM2.
-CMD ["pm2-runtime", "start", "npm", "--", "run", "start"]
+CMD ["pm2-runtime", "start", "ecosystem.config.js"]
