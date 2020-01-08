@@ -18,13 +18,13 @@ git archive --format=tar --worktree-attributes ${TRAVIS_COMMIT} | tar -xf - -C $
 # Production Build Steps.
 echo "Installing composer dependencies..."
 cd ${TRAVIS_BUILD_DIR}/docker/app/packaged
-./develop composer install --no-dev --optimize-autoloader
+docker-compose run --rm -T app composer install --no-dev --optimize-autoloader
 
 echo "Installing NPM dependencies..."
-./develop npm ci
+docker-compose run --rm -T app npm ci
 
 echo "Building site..."
-./develop npm run build
+docker-compose run --rm -T app npm run build
 docker run --rm \
     -w /opt \
     -v ${TRAVIS_BUILD_DIR}/docker/app/packaged:/opt \
