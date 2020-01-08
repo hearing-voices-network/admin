@@ -22,10 +22,6 @@ docker-compose run --rm -T app npm ci
 
 echo "Building site..."
 docker-compose run --rm -T app npm run build
-docker run --rm \
-    -w /opt \
-    -v ${TRAVIS_BUILD_DIR}/docker/app/packaged:/opt \
-    ubuntu:16.04 bash -c "rm -rf node_modules"
 
 # Get the .env file.
 echo "Downloading .env file..."
