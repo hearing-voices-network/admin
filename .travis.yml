@@ -21,7 +21,7 @@ services:
 before_script:
   - docker-compose build
   - docker-compose up -d
-  - docker-compose npm ci
+  - docker-compose run --rm -T app npm ci
   - docker-compose run --rm -T app mv .env.example .env
 
 # Commands to run for the tests.
