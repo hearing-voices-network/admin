@@ -10,6 +10,7 @@ export default {
   env: {
     appName: 'Connecting Voices',
     contactEmail: process.env.CONTACT_EMAIL || 'mailto:hello@example.com',
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
     apiBaseUrl: process.env.API_BASE_URL
   },
   /*

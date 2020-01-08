@@ -20,14 +20,14 @@ echo "Installing NPM dependencies..."
 cd ${TRAVIS_BUILD_DIR}/docker/app/packaged
 docker-compose run --rm -T app npm ci
 
-echo "Building site..."
-docker-compose run --rm -T app npm run build
-
 # Get the .env file.
 echo "Downloading .env file..."
 aws secretsmanager get-secret-value \
     --secret-id ${ENV_SECRET_ID} | \
     python -c "import json,sys;obj=json.load(sys.stdin);print obj['SecretString'];" > .env
+
+echo "Building site..."
+docker-compose run --rm -T app npm run build
 
 # Build the Docker image with latest code.
 echo "Building Docker images..."
