@@ -54,41 +54,10 @@ export default {
       },
 
       footer: {
-        navigation: [
-          {
-            title: 'Main links',
-            items: [
-              {
-                text: 'Main link 1',
-                url: { name: 'index' }
-              },
-              {
-                text: 'Main link 2',
-                url: { name: 'index' }
-              },
-              {
-                text: 'Main link 3',
-                url: { name: 'index' }
-              }
-            ]
-          }
-        ],
+        navigation: [],
         meta: {
           visuallyHiddenTitle: 'Support links',
-          items: [
-            {
-              text: 'Meta link 1',
-              url: { name: 'index' }
-            },
-            {
-              text: 'Meta link 2',
-              url: { name: 'index' }
-            },
-            {
-              text: 'Meta link 3',
-              url: { name: 'index' }
-            }
-          ]
+          items: []
         }
       }
     }
