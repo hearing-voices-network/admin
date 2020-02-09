@@ -52,6 +52,16 @@
 
             <gov-summary-list-row>
               <gov-summary-list-key>
+                Gender
+              </gov-summary-list-key>
+
+              <gov-summary-list-value>
+                {{ endUser.gender || 'N/A' }}
+              </gov-summary-list-value>
+            </gov-summary-list-row>
+
+            <gov-summary-list-row>
+              <gov-summary-list-key>
                 Ethnicity
               </gov-summary-list-key>
 
