@@ -46,67 +46,6 @@
               />
             </gov-form-group>
 
-            <gov-form-group :error="endUser.hasErrors('country')">
-              <gov-label for="country" optional>Country</gov-label>
-              <gov-error-message v-if="endUser.hasErrors('country')">
-                {{ endUser.getError('country') }}
-              </gov-error-message>
-              <gov-input
-                id="country"
-                v-model="endUser.country"
-                type="text"
-                :error="endUser.hasErrors('country')"
-                :disabled="endUser.submitting"
-                @input="endUser.clearErrors('country')"
-              />
-            </gov-form-group>
-
-            <gov-form-group :error="endUser.hasErrors('birth_year')">
-              <gov-label for="birth_year" optional>Birth year</gov-label>
-              <gov-error-message v-if="endUser.hasErrors('birth_year')">
-                {{ endUser.getError('birth_year') }}
-              </gov-error-message>
-              <gov-input
-                id="birth_year"
-                v-model="endUser.birth_year"
-                class="govuk-input--width-4"
-                type="number"
-                :error="endUser.hasErrors('birth_year')"
-                :disabled="endUser.submitting"
-                @input="endUser.clearErrors('birth_year')"
-              />
-            </gov-form-group>
-
-            <gov-form-group :error="endUser.hasErrors('gender')">
-              <gov-label for="gender" optional>Gender</gov-label>
-              <gov-error-message v-if="endUser.hasErrors('gender')">
-                {{ endUser.getError('gender') }}
-              </gov-error-message>
-              <gov-input
-                id="gender"
-                v-model="endUser.gender"
-                type="text"
-                :error="endUser.hasErrors('gender')"
-                :disabled="endUser.submitting"
-                @input="endUser.clearErrors('gender')"
-              />
-            </gov-form-group>
-
-            <gov-form-group :error="endUser.hasErrors('ethnicity')">
-              <gov-label for="ethnicity" optional>Ethnicity</gov-label>
-              <gov-error-message v-if="endUser.hasErrors('ethnicity')">
-                {{ endUser.getError('ethnicity') }}
-              </gov-error-message>
-              <gov-input
-                id="ethnicity"
-                v-model="endUser.ethnicity"
-                type="text"
-                :error="endUser.hasErrors('ethnicity')"
-                :disabled="endUser.submitting"
-                @input="endUser.clearErrors('ethnicity')"
-              />
-            </gov-form-group>
-
             <gov-button
               secondary
               type="button"
@@ -183,11 +122,7 @@ export default {
       ],
       endUser: new EndUser({
         email: null,
-        password: null,
-        country: null,
-        birth_year: null,
-        gender: null,
-        ethnicity: null
+        password: null
       })
     }
   },
