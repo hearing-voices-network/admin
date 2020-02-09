@@ -7,13 +7,15 @@ branches:
     - master
     - develop
 
+# Use Linux as the OS.
+os: linux
+
 # Use Python as the base image/language.
 language: python
 python:
   - "2.7"
 
-# Sudo and Docker both required for the build.
-sudo: required
+# Docker required for the build.
 services:
   - docker
 
@@ -38,7 +40,6 @@ before_deploy:
 deploy:
   - provider: script
     script: ./.travis/deploy.sh
-    skip_cleanup: true
     on:
       branch:
         - master
