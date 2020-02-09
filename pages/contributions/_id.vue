@@ -44,7 +44,7 @@
               </gov-summary-list-key>
 
               <gov-summary-list-value>
-                {{ contribution.content }}
+                <div v-html="$mdToHtml(contribution.content)" />
               </gov-summary-list-value>
             </gov-summary-list-row>
 

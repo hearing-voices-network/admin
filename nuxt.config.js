@@ -49,7 +49,8 @@ export default {
   plugins: [
     '~plugins/axios',
     '~plugins/vue-api-query',
-    '~plugins/font-awesome'
+    '~plugins/font-awesome',
+    '~plugins/showdown'
   ],
   /*
    ** Nuxt.js dev-modules
